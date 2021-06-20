@@ -16,5 +16,5 @@ A User should also be able to record a match as part of a League.
 ## Entities
 
 * League
-* Game
-* Player
+* Match
+* Player/User
