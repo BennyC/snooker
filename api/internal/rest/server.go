@@ -11,7 +11,7 @@ import (
 
 type Server struct {
 	storage *storage.Storage
-	auth    auth.Authentication
+	auth    auth.Service
 }
 
 func NewServer(s *storage.Storage) *Server {

@@ -9,7 +9,7 @@ import (
 )
 
 // Register HTTP handler
-func Register(a auth.Authentication) h.HandlerFunc {
+func Register(a auth.Service) h.HandlerFunc {
 	return func(w h.ResponseWriter, r *h.Request) {
 		var u entity.User
 		if err := ReadRequest(r, &u); err != nil {
@@ -35,7 +35,7 @@ func Register(a auth.Authentication) h.HandlerFunc {
 }
 
 // Authenticate HTTP handler
-func Authenticate(a auth.Authentication) h.HandlerFunc {
+func Authenticate(a auth.Service) h.HandlerFunc {
 	type AuthRequest struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`

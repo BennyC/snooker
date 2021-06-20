@@ -11,7 +11,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-type Authentication interface {
+type Service interface {
 	Register(context.Context, *entity.User) error
 	Authenticate(context.Context, string, string) (*jwt.Token, error)
 }
@@ -21,13 +21,14 @@ type AuthService struct {
 }
 
 // Create a new Authentication Service
-func New(u entity.UserRepository) Authentication {
+func New(u entity.UserRepository) Service {
 	return &AuthService{Users: u}
 }
 
 // Register
 // Register a new User with validation and then store the User in the
 // storage layer of the application
+// @TODO Send email to the User regarding their new account
 func (a AuthService) Register(ctx context.Context, u *entity.User) error {
 	if err := validateNewUser(*u, ctx, a.Users); err != nil {
 		return ErrValidationFailed{
