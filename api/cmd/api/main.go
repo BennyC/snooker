@@ -5,8 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	snooker "github.com/fudge/snooker/internal/rest"
-	"github.com/fudge/snooker/internal/storage"
+	"github.com/fudge/snooker/internal/rest"
 	"github.com/fudge/snooker/internal/storage/postgres"
 	"github.com/spf13/viper"
 )
@@ -20,11 +19,9 @@ func main() {
 		panic("cannot read environment")
 	}
 
-	db := postgres.NewDatabase(viper.GetString("DB_CONNECTION_STRING"))
+	db := postgres.New(viper.GetString("DB_CONNECTION_STRING"))
 	users := &postgres.Users{Db: db}
-	s := snooker.NewServer(&storage.Storage{
-		Users: users,
-	})
+	s := rest.New(users)
 
 	srv := &http.Server{
 		Addr:         viper.GetString("HOST_ADDRESS"),

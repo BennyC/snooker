@@ -11,11 +11,23 @@ services:
     volumes:
       - pgsql-db-volume:/var/lib/postgresql/data
 
+  dbtest:
+    image: postgres:13-alpine
+    ports:
+      - 54322:5432
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: snooker_test
+    volumes:
+      - test-db-volume:/var/lib/postgresql/data
+
   adminer:
     image: adminer
     ports:
       - 8081:8080
 
 volumes:
+  test-db-volume:
+    external: false
   pgsql-db-volume:
     external: false

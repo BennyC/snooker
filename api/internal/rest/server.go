@@ -5,19 +5,17 @@ import (
 	h "net/http"
 
 	"github.com/fudge/snooker/internal/auth"
-	"github.com/fudge/snooker/internal/storage"
+	"github.com/fudge/snooker/internal/entity"
 	"github.com/gorilla/mux"
 )
 
 type Server struct {
-	storage *storage.Storage
-	auth    auth.Service
+	auth auth.Service
 }
 
-func NewServer(s *storage.Storage) *Server {
+func New(users entity.UserRepository) *Server {
 	return &Server{
-		auth:    auth.AuthService{Users: s.Users},
-		storage: s,
+		auth: auth.AuthService{Users: users},
 	}
 }
 
